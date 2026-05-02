@@ -1,2 +1,9 @@
 *.DS_Store
 .obsidian/
+
+# Keep raw PDF out of the repo (copyrighted source material)
+raw/assets/*.pdf
+raw/assets/*.epub
+
+# Claude local settings (personal preferences, not shared)
+.claude/settings.local.json
