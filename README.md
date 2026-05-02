@@ -68,19 +68,113 @@ The wiki contains **49 concept pages** spanning the major themes:
 
 ---
 
-## How to Use
+## Setting Up in Obsidian
 
-**Browse in Obsidian** (recommended):
-1. Open Obsidian → Open folder as vault → select this directory
-2. Use graph view to explore concept connections
-3. Use backlinks panel to see all pages that reference a concept
+Obsidian is the recommended way to explore this wiki — it renders wikilinks, shows a live knowledge graph, and tracks backlinks between pages.
 
-**Browse on GitHub:**
-- Start at [`wiki/overview.md`](wiki/overview.md) for a full thematic summary
-- Use [`wiki/index.md`](wiki/index.md) to navigate to any specific page
+**Step 1 — Install Obsidian**
+Download and install [Obsidian](https://obsidian.md) (free, available for Mac, Windows, Linux, iOS, Android).
 
-**Query the wiki:**
-Drop this repo into a Claude project and ask questions — the agent will read the wiki pages and synthesize answers with wikilinks.
+**Step 2 — Clone this repo**
+```bash
+git clone https://github.com/moinuddinmusbik/ai-engineering-wiki.git
+```
+
+**Step 3 — Open as a vault**
+1. Launch Obsidian
+2. On the welcome screen click **"Open folder as vault"**
+3. Navigate to and select the cloned `ai-engineering-wiki` folder
+4. Click **Open**
+
+**Step 4 — Enable recommended plugins (optional but powerful)**
+
+In Obsidian → Settings → Core plugins, make sure these are on:
+- **Graph view** — visualizes connections between all 49+ concept pages
+- **Backlinks** — shows every page that links to the one you're reading
+- **Outgoing links** — shows all links from the current page
+- **Search** — full-text search across all wiki pages
+- **Tags** — filter pages by topic tag
+
+**Step 5 — Explore**
+
+| What to do | How |
+|---|---|
+| See the full knowledge graph | Click the graph icon in the left sidebar (or `Ctrl/Cmd + G`) |
+| Start reading | Open `wiki/overview.md` for a narrative tour of the whole wiki |
+| Browse all pages | Open `wiki/index.md` for the master catalog |
+| Follow a concept | Click any `[[wikilink]]` to jump to that concept page |
+| Find related pages | Open the Backlinks panel on the right sidebar |
+| Filter by topic | Open the Tags panel and click any tag (e.g. `#rag`, `#finetuning`) |
+
+> **Tip:** In graph view, zoom in and hover over nodes to see page names. Clusters of densely connected nodes reveal the core themes of the wiki.
+
+---
+
+## Build Your Own Wiki
+
+This wiki was built using the **LLM Wiki pattern** — an idea by [Andrej Karpathy](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) where an LLM agent builds and maintains your entire knowledge base from source documents.
+
+> 📎 **Original concept:** [Andrej Karpathy's LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+
+### What you need
+- [Claude Code](https://claude.ai/claude-code) (or any LLM agent — OpenAI Codex, Gemini, etc.)
+- [Obsidian](https://obsidian.md) (free) — for viewing the result
+- A folder of source documents (PDFs, articles, notes — anything you want to learn from)
+
+### Step 1 — Create your project folder
+```bash
+mkdir my-wiki && cd my-wiki
+mkdir raw          # your source documents go here
+```
+
+### Step 2 — Add your sources
+Drop any documents you want to build a wiki from into the `raw/` folder — PDFs, markdown files, text files, saved articles.
+
+### Step 3 — Open Claude Code and paste this prompt
+
+Start Claude Code in your project folder, then give it this message:
+
+```
+I want to build a personal knowledge base (second brain) using the LLM Wiki 
+pattern created by Andrej Karpathy (https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
+
+My wiki will be about: [DESCRIBE YOUR TOPIC — e.g. "machine learning papers I'm reading", 
+"my startup's product domain", "philosophy books I'm studying"]
+
+My sources are in the raw/ folder: [LIST YOUR FILES]
+
+Please:
+1. Read Karpathy's original gist to understand the pattern
+2. Ask me any clarifying questions about my goals for this wiki
+3. Create a CLAUDE.md schema file tailored to my topic and source material
+4. Once I approve the schema, begin ingesting my first source document
+
+The wiki should use Obsidian-compatible markdown with [[wikilinks]], YAML 
+frontmatter, and be organized into: wiki/sources/, wiki/concepts/, wiki/entities/, 
+wiki/analyses/, with wiki/index.md and wiki/overview.md as navigation hubs.
+```
+
+### Step 4 — Iterate
+Once your schema is set, use these commands to grow the wiki:
+
+| Command to Claude | What happens |
+|---|---|
+| `"Ingest [filename]"` | Agent reads the source and creates/updates all relevant wiki pages |
+| `"Query: [your question]"` | Agent reads the wiki and synthesizes an answer with wikilinks |
+| `"Run a lint"` | Agent finds orphan pages, broken links, stale content, and missing pages |
+| `"Add [topic] to the wiki"` | Agent creates a new concept or entity page |
+
+### How it works
+
+```
+You add a source → Agent reads it → Agent creates wiki pages → 
+You ask questions → Agent answers from the wiki → 
+Good answers get filed back as new pages → Wiki compounds over time
+```
+
+The key insight from Karpathy: **the LLM doesn't search raw documents on every query — it reads the already-synthesised wiki**. The wiki is a compiled, interlinked knowledge artifact that gets smarter every time you add a source.
+
+The `CLAUDE.md` schema file (see [`CLAUDE.md`](CLAUDE.md) in this repo for a real example) is what transforms a generic LLM agent into a disciplined wiki maintainer — it defines the directory structure, page types, frontmatter format, and the exact workflow for each operation (ingest, query, lint, evolve).
 
 ---
 
@@ -93,6 +187,16 @@ This wiki is governed by [`CLAUDE.md`](CLAUDE.md), which defines:
 - Ownership rules (human owns `raw/`, LLM owns `wiki/`)
 
 The schema is designed to be reused for any knowledge domain — swap out the source material and the same agent workflow applies.
+
+---
+
+## Credits & Inspiration
+
+This wiki was built using the **LLM Wiki pattern** originally conceived and published by **Andrej Karpathy** — co-founder of OpenAI, former Director of AI at Tesla, and one of the clearest explainers of machine learning concepts working today.
+
+- 📎 **Original LLM Wiki gist:** [gist.github.com/karpathy/442a6bf555914893e9891c11519de94f](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+- 🐦 **Karpathy on X:** [@karpathy](https://x.com/karpathy)
+- 🌐 **Karpathy's website:** [karpathy.ai](https://karpathy.ai)
 
 ---
 
