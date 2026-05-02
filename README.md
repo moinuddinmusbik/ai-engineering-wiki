@@ -72,6 +72,9 @@ The wiki contains **49 concept pages** spanning the major themes:
 
 Obsidian is the recommended way to explore this wiki — it renders wikilinks, shows a live knowledge graph, and tracks backlinks between pages.
 
+![AI Engineering Wiki — Obsidian Graph View](assets/obsidian-graph.jpeg)
+*The full knowledge graph of this wiki in Obsidian — each node is a concept, entity, or source page; edges are [[wikilinks]] between them.*
+
 **Step 1 — Install Obsidian**
 Download and install [Obsidian](https://obsidian.md) (free, available for Mac, Windows, Linux, iOS, Android).
 
